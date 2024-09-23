@@ -44,15 +44,6 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
 
         return super().form_valid(form)
 
-"""def get_form_class(self):
-    #Определяет вид формы для редактирования
-    user = self.request.user
-    if user == self.object.autor:
-        return BlogEntryForm
-    if user.has_perm('blog.can_edit_publications'):
-        return BlogEntryModeratorForm
-    raise PermissionDenied("У вас нет прав на редактирование этого прод")"""
-
 
 class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
