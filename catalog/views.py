@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.forms import inlineformset_factory
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy, reverse
@@ -42,6 +43,16 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
         product.save()
 
         return super().form_valid(form)
+
+"""def get_form_class(self):
+    #Определяет вид формы для редактирования
+    user = self.request.user
+    if user == self.object.autor:
+        return BlogEntryForm
+    if user.has_perm('blog.can_edit_publications'):
+        return BlogEntryModeratorForm
+    raise PermissionDenied("У вас нет прав на редактирование этого прод")"""
+
 
 class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
