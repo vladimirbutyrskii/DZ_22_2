@@ -29,7 +29,7 @@ class ProductDetailView(DetailView):
         return self.object
 
 
-class ProductCreateView(CreateView, LoginRequiredMixin):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
     # fields = ("name", "description", "photo", "category", "price", "created_at", "updated_at", "manufactured_at")
@@ -43,7 +43,7 @@ class ProductCreateView(CreateView, LoginRequiredMixin):
 
         return super().form_valid(form)
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
     # fields = ("name", "description", "photo", "category", "price", "created_at", "updated_at", "manufactured_at")
@@ -73,6 +73,6 @@ class ProductUpdateView(UpdateView):
             return self.render_to_response(self.get_context_data(form=form, formset=formset))
 
 
-class ProductDeleteView(DeleteView):
+class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     success_url = reverse_lazy('catalog:products_list')
